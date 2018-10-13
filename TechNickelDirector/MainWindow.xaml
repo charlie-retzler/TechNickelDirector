@@ -23,6 +23,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -91,6 +92,16 @@
                 </WrapPanel>
             </StackPanel>
             <StackPanel Grid.Row="3">
+                <WrapPanel Name="SoundsPanel" HorizontalAlignment="Center">
+                    <WrapPanel.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Margin" Value="10, 0, 0, 0"/>
+                        </Style>
+                    </WrapPanel.Resources>
+                    <Button Name="StopSoundButton" Click="StopSoundButton_OnClick">Stop Sound</Button>
+                </WrapPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="4">
                 <WrapPanel HorizontalAlignment="Center">
                     <WrapPanel.Resources>
                         <Style TargetType="{x:Type Button}">
