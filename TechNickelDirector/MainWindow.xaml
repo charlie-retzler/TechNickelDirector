@@ -6,92 +6,104 @@
         xmlns:local="clr-namespace:TechNickelDirector"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Click="MenuNew_OnClick" />
+                <MenuItem Header="_Open" Click="MenuOpen_OnClick"/>
+                <MenuItem Header="_Save" Click="MenuSave_OnClick" />
+                <Separator />
+                <MenuItem Header="_Exit" Click="MenuExit_OnClick" />
+            </MenuItem>
+        </Menu>
+        <!--<TextBox AcceptsReturn="True" />-->
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="100"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <ListView Grid.Row="0" Margin="10" Name="AvailableCues">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <WrapPanel>
-                            <TextBlock Text="{Binding FileName}" FontWeight="Bold" />
-                        </WrapPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ListView Grid.Row="0" Margin="10" Name="AvailableCues">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding FileName}" FontWeight="Bold" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-            <StackPanel Grid.Row="0" Grid.Column="1"  VerticalAlignment="Center">
-                <StackPanel.Resources>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Margin" Value="0,15,0,0"/>
-                    </Style>
-                </StackPanel.Resources>
+                <StackPanel Grid.Row="0" Grid.Column="1"  VerticalAlignment="Center">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Margin" Value="0,15,0,0"/>
+                        </Style>
+                    </StackPanel.Resources>
                 
-                <Button Name="AddButton" Click="AddButton_Click">Add</Button>
-                <Button Name="RemoveButton" Click="RemoveButton_Click" Content="Remove"/>
-            </StackPanel>
+                    <Button Name="AddButton" Click="AddButton_Click">Add</Button>
+                    <Button Name="RemoveButton" Click="RemoveButton_Click" Content="Remove"/>
+                </StackPanel>
 
-            <ListView Grid.Row="0" Grid.Column="2" Margin="10" Name="ActualCues">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <WrapPanel>
-                            <TextBlock Text="{Binding FileName}" FontWeight="Bold" />
-                        </WrapPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                <ListView Grid.Row="0" Grid.Column="2" Margin="10" Name="ActualCues">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding FileName}" FontWeight="Bold" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-            <StackPanel Grid.Row="0" Grid.Column="3"  VerticalAlignment="Center">
-                <StackPanel.Resources>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Margin" Value="0,15,0,0"/>
-                    </Style>
-                </StackPanel.Resources>
+                <StackPanel Grid.Row="0" Grid.Column="3"  VerticalAlignment="Center">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Margin" Value="0,15,0,0"/>
+                        </Style>
+                    </StackPanel.Resources>
                 
-                <Button Name="MoveUpButton" Click="MoveUpButton_Click">Move Up</Button>
-                <Button Name="MoveDownButton" Click="MoveDownButton_Click" >Move Down</Button>
-            </StackPanel>
+                    <Button Name="MoveUpButton" Click="MoveUpButton_Click">Move Up</Button>
+                    <Button Name="MoveDownButton" Click="MoveDownButton_Click" >Move Down</Button>
+                </StackPanel>
 
+            </Grid>
+            <StackPanel Grid.Row="1">
+                <TextBlock Text="Currently Playing" /> 
+                <TextBlock Name="CurrentCue" FontWeight="Bold" />
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <WrapPanel HorizontalAlignment="Center">
+                    <WrapPanel.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Margin" Value="10, 0, 0, 0"/>
+                        </Style>
+                    </WrapPanel.Resources>
+                
+                    <Button Name="FullScreenPlayer" Click="FullScreenPlayer_Click">Full Screen</Button>
+                    <Button Name="WindowedPlayer" Click="WindowedPlayer_Click">In Window</Button>
+                </WrapPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="3">
+                <WrapPanel HorizontalAlignment="Center">
+                    <WrapPanel.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Margin" Value="10, 0, 0, 0"/>
+                        </Style>
+                    </WrapPanel.Resources>
+
+                    <Button Name="PlayButton" Click="PlayButton_Click">Play</Button>
+                    <Button Name="PauseButton" Click="PauseButton_Click">Pause</Button>
+                    <Button Name="StopButton" Click="StopButton_Click">Stop</Button>
+                    <Button Name="PlayNextButton" Click="PlayNextButton_Click">Play Next</Button>
+                </WrapPanel>
+            </StackPanel>
         </Grid>
-        <StackPanel Grid.Row="1">
-            <TextBlock Text="Currently Playing" /> 
-            <TextBlock Name="CurrentCue" FontWeight="Bold" />
-        </StackPanel>
-        <StackPanel Grid.Row="2">
-            <WrapPanel HorizontalAlignment="Center">
-                <WrapPanel.Resources>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Margin" Value="10, 0, 0, 0"/>
-                    </Style>
-                </WrapPanel.Resources>
-                
-                <Button Name="FullScreenPlayer" Click="FullScreenPlayer_Click">Full Screen</Button>
-                <Button Name="WindowedPlayer" Click="WindowedPlayer_Click">In Window</Button>
-            </WrapPanel>
-        </StackPanel>
-        <StackPanel Grid.Row="3">
-            <WrapPanel HorizontalAlignment="Center">
-                <WrapPanel.Resources>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Margin" Value="10, 0, 0, 0"/>
-                    </Style>
-                </WrapPanel.Resources>
-
-                <Button Name="PlayButton" Click="PlayButton_Click">Play</Button>
-                <Button Name="PauseButton" Click="PauseButton_Click">Pause</Button>
-                <Button Name="StopButton" Click="StopButton_Click">Stop</Button>
-                <Button Name="PlayNextButton" Click="PlayNextButton_Click">Play Next</Button>
-            </WrapPanel>
-        </StackPanel>
-    </Grid>
+    </DockPanel>
 </Window>

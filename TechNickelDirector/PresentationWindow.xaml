@@ -8,6 +8,6 @@
         Title="PresentationWindow" Height="300" Width="300" Background="Black" >
     <!--WindowState="Maximized" WindowStyle="None">-->
     <Grid>
-        <MediaElement Name="Media" Source="Z:\Moron Report Stuff\2017 Summer - Chaos\3 Headed Experts.mp4" LoadedBehavior="Manual" />
+        <MediaElement Name="Media" LoadedBehavior="Manual" />
     </Grid>
 </Window>
