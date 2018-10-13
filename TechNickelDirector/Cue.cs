@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TechNickelDirector
 {
-    class Cue
+    public class Cue
     {
         public string FullFilename { get; set; }
         public string FileName => Path.GetFileName(FullFilename);
