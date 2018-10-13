@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Media;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 
 namespace TechNickelDirector
 {
@@ -21,22 +20,53 @@ namespace TechNickelDirector
         private readonly PresentationWindow _presentationWindow;
         private WindowState _previousWindowState;
         private ResizeMode _resizeMode;
-        private readonly List<Cue> _availableFiles;
         private readonly ObservableCollection<Cue> _actualCues = new ObservableCollection<Cue>();
         private Cue _currentCue;
         private readonly CueRepository _cueRepository;
+        private readonly MediaPlayer _soundPlayer = new MediaPlayer();
 
         public MainWindow()
         {
             InitializeComponent();
             _presentationWindow = new PresentationWindow();
             _presentationWindow.Show();
-            _availableFiles = LoadFolder(@"Z:\DropBox\Moron Report\Been A While\");           
+           
+            var sounds = LoadSounds(@"Z:\DropBox\Moron Report\Been A While\Sounds");
+            AddSoundButtons(sounds);
 
-            AvailableCues.ItemsSource = _availableFiles;
+            var availableFiles = LoadFolder(@"Z:\DropBox\Moron Report\Been A While\");
+            AvailableCues.ItemsSource = availableFiles;
             ActualCues.ItemsSource = _actualCues;
             _cueRepository = new CueRepository();
         }
+
+        private List<Sound> LoadSounds(string path)
+        {
+            var files = Directory.GetFiles(path);
+            var sounds = new List<Sound>();
+            foreach (var file in files)
+            {
+                sounds.Add(new Sound { FullFilename = file });
+            }
+
+            return sounds;
+        }
+
+        private void AddSoundButtons(List<Sound> sounds)
+        {
+            foreach (var sound in sounds)
+            {
+                var button = new Button
+                {
+                    Content = sound
+                };
+                button.Click += SoundButton_Clicked;
+                SoundsPanel.Children.Add(button);
+            }
+
+
+        }
+
 
         private List<Cue> LoadFolder(string path)
         {
@@ -228,6 +258,26 @@ namespace TechNickelDirector
         private void MenuExit_OnClick(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+
+        private void SoundButton_Clicked(object sender, RoutedEventArgs routedEventArgs)
+        {
+            var button = (sender as Button);
+            var sound = button?.Content as Sound;
+            if (sound == null)
+            {
+                return;
+            }
+            var source = new Uri(sound.FullFilename, UriKind.RelativeOrAbsolute);
+
+            _soundPlayer.Open(source);
+            _soundPlayer.Play();
+        }
+
+        private void StopSoundButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _soundPlayer.Stop();
         }
     }
 }
